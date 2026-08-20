@@ -1,0 +1,2303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>QA Practice Store</title>
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #172033;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    height: 72px;
+    padding: 0 6%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #111827;
+    color: white;
+
+    box-shadow: 0 4px 20px rgba(0,0,0,.15);
+}
+
+.brand {
+    font-size: 27px;
+    font-weight: 800;
+}
+
+.brand span {
+    color: #60a5fa;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+nav a,
+nav button {
+    color: white;
+    text-decoration: none;
+    background: transparent;
+    border: 0;
+    padding: 10px 13px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+nav a:hover,
+nav button:hover {
+    background: rgba(255,255,255,.1);
+}
+
+#cartCount {
+    background: #2563eb;
+    padding: 2px 7px;
+    border-radius: 20px;
+}
+
+.ghost {
+    border: 1px solid #475569 !important;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-page {
+    min-height: calc(100vh - 72px);
+
+    display: grid;
+    place-items: center;
+
+    padding: 30px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #dbeafe,
+            transparent 35%
+        ),
+        #f8fafc;
+}
+
+.login-card {
+    width: 410px;
+
+    padding: 40px;
+
+    background: white;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 25px 70px rgba(15,23,42,.12);
+}
+
+.logo {
+    width: 55px;
+    height: 55px;
+
+    display: grid;
+    place-items: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        );
+
+    color: white;
+
+    border-radius: 15px;
+
+    font-weight: 800;
+    font-size: 20px;
+}
+
+.login-card h1 {
+    margin-bottom: 5px;
+}
+
+.login-card p {
+    color: #64748b;
+}
+
+label {
+    display: block;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    margin: 14px 0 7px;
+}
+
+input,
+select {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid #d8dee9;
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background: white;
+
+    font-size: 14px;
+}
+
+input:focus,
+select:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,.1);
+}
+
+.check {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-weight: 500;
+}
+
+.check input {
+    width: auto;
+}
+
+.primary {
+    display: inline-block;
+
+    border: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        );
+
+    color: white;
+
+    padding: 12px 20px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    font-weight: 600;
+}
+
+.wide {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.link {
+    border: 0;
+
+    background: transparent;
+
+    color: #2563eb;
+
+    cursor: pointer;
+
+    display: block;
+
+    margin: 14px auto;
+}
+
+.error {
+    color: #dc2626;
+
+    font-size: 14px;
+
+    margin-top: 10px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    margin: 35px 6%;
+
+    padding: 60px;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #172554,
+            #2563eb
+        );
+
+    color: white;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.hero h1 {
+    max-width: 650px;
+
+    margin: 15px 0;
+
+    font-size: 48px;
+}
+
+.hero p {
+    max-width: 600px;
+
+    color: #dbeafe;
+
+    line-height: 1.7;
+}
+
+.pill {
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    color: #bfdbfe;
+}
+
+.hero-card {
+    width: 190px;
+    height: 190px;
+
+    border-radius: 25px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: rgba(255,255,255,.12);
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
+    font-size: 55px;
+}
+
+.hero-card strong {
+    font-size: 17px;
+
+    margin-top: 10px;
+}
+
+.hero-card span {
+    font-size: 13px;
+
+    color: #bfdbfe;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section {
+    margin: 45px 6%;
+}
+
+.section-head {
+    display: flex;
+
+    align-items: end;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.section p {
+    color: #64748b;
+}
+
+.filters {
+    display: flex;
+
+    gap: 10px;
+}
+
+.filters input {
+    width: 250px;
+}
+
+.filters select {
+    width: 190px;
+}
+
+/* =========================
+   PRODUCTS
+========================= */
+
+.grid {
+    margin-top: 25px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(230px,1fr)
+        );
+
+    gap: 22px;
+}
+
+.product {
+    background: white;
+
+    border:
+        1px solid
+        #e5e7eb;
+
+    border-radius: 17px;
+
+    padding: 18px;
+
+    box-shadow:
+        0 8px 30px
+        rgba(15,23,42,.06);
+
+    transition: .25s;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+}
+
+.product .icon {
+    height: 150px;
+
+    display: grid;
+
+    place-items: center;
+
+    background: #eff6ff;
+
+    border-radius: 13px;
+
+    font-size: 60px;
+}
+
+.product .price {
+    font-size: 23px;
+
+    font-weight: 800;
+}
+
+.product button {
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 11px;
+
+    border: 0;
+
+    border-radius: 9px;
+
+    background: #111827;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+.product button:hover {
+    background: #2563eb;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrap {
+    margin-top: 18px;
+
+    overflow-x: auto;
+
+    background: white;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(15,23,42,.05);
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 15px;
+
+    text-align: left;
+
+    border-bottom:
+        1px solid #e5e7eb;
+}
+
+th {
+    background: #f8fafc;
+
+    color: #64748b;
+}
+
+/* =========================
+   TOOLS
+========================= */
+
+.tools {
+    background: white;
+
+    padding: 28px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(15,23,42,.05);
+}
+
+.tool-grid {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+.tool-grid button,
+.tool-grid a,
+.upload {
+    border:
+        1px solid #d8dee9;
+
+    background: white;
+
+    padding: 11px 15px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    color: #172033;
+}
+
+.upload input {
+    display: none;
+}
+
+#fileName {
+    color: #2563eb;
+
+    font-weight: 600;
+}
+
+iframe {
+    width: 100%;
+
+    height: 150px;
+
+    margin-top: 20px;
+
+    border:
+        1px solid #d8dee9;
+
+    border-radius: 10px;
+}
+
+/* =========================
+   CART
+========================= */
+
+.cart-panel {
+    position: fixed;
+
+    top: 0;
+
+    right: -430px;
+
+    width: 410px;
+
+    height: 100vh;
+
+    z-index: 200;
+
+    background: white;
+
+    padding: 25px;
+
+    box-shadow:
+        -15px 0 45px
+        rgba(0,0,0,.15);
+
+    transition: .3s;
+}
+
+.cart-panel.open {
+    right: 0;
+}
+
+.cart-head {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.cart-head button,
+.close {
+    border: 0;
+
+    background: transparent;
+
+    font-size: 30px;
+
+    cursor: pointer;
+}
+
+.cart-item {
+    padding: 15px 0;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+    display: flex;
+
+    justify-content: space-between;
+}
+
+.cart-item button {
+    border: 0;
+
+    color: #dc2626;
+
+    background: transparent;
+
+    cursor: pointer;
+}
+
+.cart-total {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 25px;
+
+    font-size: 19px;
+}
+
+/* =========================
+   CHECKOUT MODAL
+========================= */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 300;
+
+    display: grid;
+
+    place-items: center;
+
+    padding: 20px;
+
+    background:
+        rgba(15,23,42,.65);
+}
+
+.modal-card {
+    width: 440px;
+
+    max-width: 100%;
+
+    padding: 32px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    position: relative;
+}
+
+.close {
+    position: absolute;
+
+    right: 15px;
+
+    top: 8px;
+}
+
+.pay-options {
+    display: flex;
+
+    gap: 25px;
+}
+
+.pay-options label {
+    display: flex;
+
+    gap: 7px;
+}
+
+.pay-options input {
+    width: auto;
+}
+
+#checkoutMessage {
+    margin-top: 15px;
+
+    color: #15803d;
+
+    font-weight: 700;
+}
+
+/* =========================
+   HIDDEN
+========================= */
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:800px) {
+
+    header {
+        padding: 0 20px;
+    }
+
+    nav a {
+        display: none;
+    }
+
+    .hero {
+        margin: 20px;
+
+        padding: 35px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero-card {
+        display: none;
+    }
+
+    .section {
+        margin: 30px 20px;
+    }
+
+    .section-head {
+        display: block;
+    }
+
+    .filters {
+        flex-direction: column;
+
+        margin-top: 15px;
+    }
+
+    .filters input,
+    .filters select {
+        width: 100%;
+    }
+
+    .cart-panel {
+        width: 100%;
+
+        right: -100%;
+    }
+}
+.payment-section {
+    margin-top: 20px;
+}
+
+.payment-section h3 {
+    margin-bottom: 12px;
+}
+
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 14px;
+
+    border: 1px solid #d8dee9;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+    margin: 0;
+}
+
+.payment-option:hover {
+    border-color: #2563eb;
+    background: #eff6ff;
+}
+
+.payment-option:has(input:checked) {
+    border-color: #2563eb;
+    background: #eff6ff;
+}
+
+.payment-option input {
+    width: auto;
+    margin: 0;
+}
+
+.payment-option > span {
+    font-size: 25px;
+}
+
+.payment-option div {
+    display: flex;
+    flex-direction: column;
+}
+
+.payment-option strong {
+    font-size: 14px;
+}
+
+.payment-option small {
+    color: #64748b;
+    margin-top: 3px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="brand">
+        QA<span>Store</span>
+    </div>
+
+    <nav>
+
+        <a href="#home">
+            Home
+        </a>
+
+        <a href="#products">
+            Products
+        </a>
+
+        <a href="#orders">
+            Orders
+        </a>
+
+        <button id="cartBtn">
+            Cart
+            <b id="cartCount">0</b>
+        </button>
+
+        <button
+            id="logoutBtn"
+            class="ghost">
+
+            Logout
+
+        </button>
+
+    </nav>
+
+</header>
+
+
+<main>
+
+
+<!-- =========================
+     LOGIN
+========================= -->
+
+<section
+    id="login"
+    class="login-page">
+
+    <div class="login-card">
+
+        <div class="logo">
+            QA
+        </div>
+
+        <h1>
+            Welcome back
+        </h1>
+
+        <p>
+            QA Automation Practice Website
+        </p>
+
+
+        <label for="username">
+            Username
+        </label>
+
+        <input
+            id="username"
+            placeholder="admin">
+
+
+        <label for="password">
+            Password
+        </label>
+
+        <input
+            id="password"
+            type="password"
+            placeholder="admin123">
+
+
+        <label class="check">
+
+            <input
+                id="remember"
+                type="checkbox">
+
+            Remember me
+
+        </label>
+
+
+        <button
+            id="loginBtn"
+            class="primary wide">
+
+            Login
+
+        </button>
+
+
+        <button
+            id="forgotBtn"
+            class="link">
+
+            Forgot Password?
+
+        </button>
+
+
+        <div
+            id="loginError"
+            class="error">
+        </div>
+
+
+        <small>
+            Demo Login:
+            admin / admin123
+        </small>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     APPLICATION
+========================= -->
+
+<section
+    id="app"
+    class="hidden">
+
+
+<!-- HERO -->
+
+<div class="hero">
+
+    <div>
+
+        <span class="pill">
+            QA PRACTICE PROJECT
+        </span>
+
+        <h1>
+            Test like a real
+            QA Engineer.
+        </h1>
+
+        <p>
+            Practice UI automation,
+            forms, cart, checkout,
+            filters, tables,
+            dialogs and more.
+        </p>
+
+        <a
+            href="#products"
+            class="primary">
+
+            Explore Products
+
+        </a>
+
+    </div>
+
+
+    <div class="hero-card">
+
+        🧪
+
+        <strong>
+            Automation Ready
+        </strong>
+
+        <span>
+            Playwright
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     PRODUCTS
+========================= -->
+
+<div
+    id="products"
+    class="section">
+
+    <div class="section-head">
+
+        <div>
+
+            <h2>
+                Products
+            </h2>
+
+            <p>
+                Search, filter and
+                add products to cart.
+            </p>
+
+        </div>
+
+
+        <div class="filters">
+
+            <input
+                id="search"
+                placeholder="Search product...">
+
+
+            <select id="category">
+
+                <option value="all">
+                    All Categories
+                </option>
+
+                <option value="electronics">
+                    Electronics
+                </option>
+
+                <option value="accessories">
+                    Accessories
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="productGrid"
+        class="grid">
+    </div>
+
+</div>
+
+
+<!-- =========================
+     ORDERS
+========================= -->
+
+<div
+    id="orders"
+    class="section">
+
+    <h2>
+        Orders
+    </h2>
+
+    <p>
+        Practice table filtering
+        and status validation.
+    </p>
+
+
+    <input
+        id="orderSearch"
+        placeholder="Search order or customer...">
+
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Order ID
+                    </th>
+
+                    <th>
+                        Customer
+                    </th>
+
+                    <th>
+                        Amount
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody
+                id="ordersBody">
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     AUTOMATION PLAYGROUND
+========================= -->
+
+<div class="section tools">
+
+    <h2>
+        Automation Playground
+    </h2>
+
+
+    <div class="tool-grid">
+
+        <button id="alertBtn">
+            Alert / Dialog
+        </button>
+
+
+        <button id="newTabBtn">
+            Open New Tab
+        </button>
+
+
+        <button id="iframeBtn">
+            Show iframe
+        </button>
+
+
+        <label class="upload">
+
+            Upload File
+
+            <input
+                id="fileInput"
+                type="file">
+
+        </label>
+
+
+        <a
+            id="downloadBtn"
+            download="qa-report.txt"
+            href="data:text/plain,QA Practice Report">
+
+            Download File
+
+        </a>
+
+    </div>
+
+
+    <p id="fileName"></p>
+
+
+    <iframe
+        id="practiceFrame"
+        class="hidden"
+        title="Practice iframe"
+        srcdoc="
+        <h3>Inside iframe</h3>
+        <button
+        onclick=
+        'document.body.dataset.clicked=&quot;true&quot;'>
+        Click Frame Button
+        </button>
+        ">
+    </iframe>
+
+</div>
+
+
+</section>
+
+</main>
+
+
+<!-- =========================
+     CART
+========================= -->
+
+<aside
+    id="cartPanel"
+    class="cart-panel">
+
+
+    <div class="cart-head">
+
+        <h2>
+            Your Cart
+        </h2>
+
+        <button id="closeCart">
+            ×
+        </button>
+
+    </div>
+
+
+    <div id="cartItems">
+    </div>
+
+
+    <div class="cart-total">
+
+        <span>
+            Total
+        </span>
+
+        <strong>
+            $
+            <span id="total">
+                0
+            </span>
+        </strong>
+
+    </div>
+
+
+    <button
+        id="checkoutBtn"
+        class="primary wide">
+
+        Checkout
+
+    </button>
+
+
+</aside>
+
+
+<!-- =========================
+     CHECKOUT
+========================= -->
+
+<div
+    id="checkoutModal"
+    class="modal hidden">
+
+
+    <div class="modal-card">
+
+
+        <button
+            id="closeCheckout"
+            class="close">
+
+            ×
+
+        </button>
+
+
+        <h2>
+            Checkout
+        </h2>
+
+
+        <label for="fullName">
+            Full Name
+        </label>
+
+        <input
+            id="fullName"
+            placeholder="Shubham Tiwari">
+
+
+        <label for="email">
+            Email
+        </label>
+
+        <input
+            id="email"
+            type="email"
+            placeholder="test@example.com">
+
+
+        <label for="country">
+            Country
+        </label>
+
+        <select id="country">
+
+            <option value="">
+                Select
+            </option>
+
+            <option value="India">
+                India
+            </option>
+
+            <option value="USA">
+                USA
+            </option>
+
+            <option value="UK">
+                UK
+            </option>
+
+        </select>
+
+
+        <div class="payment-section">
+
+    <h3>Payment Method</h3>
+
+    <div class="payment-options">
+
+        <label class="payment-option">
+            <input
+                type="radio"
+                name="pay"
+                value="card">
+
+            <span>💳</span>
+
+            <div>
+                <strong>Credit / Debit Card</strong>
+                <small>Visa, Mastercard, RuPay</small>
+            </div>
+        </label>
+
+
+        <label class="payment-option">
+            <input
+                type="radio"
+                name="pay"
+                value="upi">
+
+            <span>📱</span>
+
+            <div>
+                <strong>UPI</strong>
+                <small>Google Pay, PhonePe, Paytm</small>
+            </div>
+        </label>
+
+
+        <label class="payment-option">
+            <input
+                type="radio"
+                name="pay"
+                value="netbanking">
+
+            <span>🏦</span>
+
+            <div>
+                <strong>Net Banking</strong>
+                <small>All major banks</small>
+            </div>
+        </label>
+
+
+        <label class="payment-option">
+            <input
+                type="radio"
+                name="pay"
+                value="wallet">
+
+            <span>👛</span>
+
+            <div>
+                <strong>Wallet</strong>
+                <small>Paytm, Amazon Pay</small>
+            </div>
+        </label>
+
+
+        <label class="payment-option">
+            <input
+                type="radio"
+                name="pay"
+                value="cod">
+
+            <span>💵</span>
+
+            <div>
+                <strong>Cash on Delivery</strong>
+                <small>Pay when your order arrives</small>
+            </div>
+        </label>
+
+    </div>
+
+</div>
+
+
+        <label class="check">
+
+            <input
+                id="terms"
+                type="checkbox">
+
+            I agree to terms
+
+        </label>
+
+
+        <button
+            id="placeOrder"
+            class="primary wide">
+
+            Place Order
+
+        </button>
+
+
+        <div
+            id="checkoutMessage">
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   PRODUCT DATA
+========================= */
+
+const products = [
+
+    {
+        id: 1,
+        name: "Laptop Pro",
+        price: 899,
+        category: "electronics",
+        icon: "💻"
+    },
+
+    {
+        id: 2,
+        name: "Smart Phone",
+        price: 599,
+        category: "electronics",
+        icon: "📱"
+    },
+
+    {
+        id: 3,
+        name: "Wireless Headphones",
+        price: 129,
+        category: "accessories",
+        icon: "🎧"
+    },
+
+    {
+        id: 4,
+        name: "Mechanical Keyboard",
+        price: 89,
+        category: "accessories",
+        icon: "⌨️"
+    },
+
+    {
+        id: 5,
+        name: "Smart Watch",
+        price: 199,
+        category: "electronics",
+        icon: "⌚"
+    },
+
+    {
+        id: 6,
+        name: "Gaming Mouse",
+        price: 59,
+        category: "accessories",
+        icon: "🖱️"
+    }
+
+];
+
+
+let cart = [];
+
+
+/* =========================
+   ORDERS
+========================= */
+
+const orders = [
+
+    ["ORD-1001", "Amit", "$899", "Success"],
+
+    ["ORD-1002", "Neha", "$129", "Pending"],
+
+    ["ORD-1003", "Rahul", "$599", "Failed"],
+
+    ["ORD-1004", "Priya", "$89", "Success"]
+
+];
+
+
+/* =========================
+   HELPER
+========================= */
+
+function getElement(id) {
+
+    return document.getElementById(id);
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+getElement("loginBtn")
+    .addEventListener(
+        "click",
+        function () {
+
+            const username =
+                getElement("username")
+                .value
+                .trim();
+
+            const password =
+                getElement("password")
+                .value;
+
+
+            if (
+                username === "admin" &&
+                password === "admin123"
+            ) {
+
+                localStorage.setItem(
+                    "loggedIn",
+                    "true"
+                );
+
+
+                getElement("login")
+                    .classList
+                    .add("hidden");
+
+
+                getElement("app")
+                    .classList
+                    .remove("hidden");
+
+
+                renderProducts();
+
+                renderOrders();
+
+            }
+
+            else {
+
+                getElement("loginError")
+                    .textContent =
+                    "Invalid username or password";
+
+            }
+
+        }
+    );
+
+
+/* =========================
+   FORGOT PASSWORD
+========================= */
+
+getElement("forgotBtn")
+    .addEventListener(
+        "click",
+        function () {
+
+            alert(
+                "Password reset link sent"
+            );
+
+        }
+    );
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+getElement("logoutBtn")
+    .addEventListener(
+        "click",
+        function () {
+
+            localStorage.removeItem(
+                "loggedIn"
+            );
+
+
+            getElement("app")
+                .classList
+                .add("hidden");
+
+
+            getElement("login")
+                .classList
+                .remove("hidden");
+
+
+            getElement("username")
+                .value = "";
+
+            getElement("password")
+                .value = "";
+
+        }
+    );
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+function renderProducts() {
+
+    const search =
+        getElement("search")
+        .value
+        .toLowerCase();
+
+
+    const category =
+        getElement("category")
+        .value;
+
+
+    const filteredProducts =
+        products.filter(
+            function (product) {
+
+                const searchMatch =
+                    product.name
+                    .toLowerCase()
+                    .includes(search);
+
+
+                const categoryMatch =
+                    category === "all" ||
+                    product.category === category;
+
+
+                return (
+                    searchMatch &&
+                    categoryMatch
+                );
+
+            }
+        );
+
+
+    getElement("productGrid")
+        .innerHTML =
+        filteredProducts
+        .map(
+            function (product) {
+
+                return `
+
+                <article
+                    class="product">
+
+                    <div class="icon">
+
+                        ${product.icon}
+
+                    </div>
+
+                    <h3>
+
+                        ${product.name}
+
+                    </h3>
+
+                    <p>
+
+                        Category:
+                        ${product.category}
+
+                    </p>
+
+                    <div class="price">
+
+                        $${product.price}
+
+                    </div>
+
+                    <button
+                        class="add"
+                        data-id="${product.id}">
+
+                        Add to Cart
+
+                    </button>
+
+                </article>
+
+                `;
+
+            }
+        )
+        .join("");
+
+
+    document
+        .querySelectorAll(".add")
+        .forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        const product =
+                            products.find(
+                                function (item) {
+
+                                    return (
+                                        item.id ===
+                                        Number(
+                                            button
+                                            .dataset
+                                            .id
+                                        )
+                                    );
+
+                                }
+                            );
+
+
+                        cart.push(product);
+
+
+                        updateCart();
+
+
+                        alert(
+                            product.name +
+                            " added to cart"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+getElement("search")
+    .addEventListener(
+        "input",
+        renderProducts
+    );
+
+
+/* =========================
+   CATEGORY
+========================= */
+
+getElement("category")
+    .addEventListener(
+        "change",
+        renderProducts
+    );
+
+
+/* =========================
+   CART
+========================= */
+
+function updateCart() {
+
+    getElement("cartCount")
+        .textContent =
+        cart.length;
+
+
+    getElement("cartItems")
+        .innerHTML =
+        cart
+        .map(
+            function (product, index) {
+
+                return `
+
+                <div class="cart-item">
+
+                    <span>
+
+                        <strong>
+                            ${product.name}
+                        </strong>
+
+                        <br>
+
+                        $${product.price}
+
+                    </span>
+
+
+                    <button
+                        class="remove"
+                        data-index="${index}">
+
+                        Remove
+
+                    </button>
+
+                </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+
+    const total =
+        cart.reduce(
+            function (sum, product) {
+
+                return (
+                    sum +
+                    product.price
+                );
+
+            },
+            0
+        );
+
+
+    getElement("total")
+        .textContent =
+        total;
+
+
+    document
+        .querySelectorAll(".remove")
+        .forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        cart.splice(
+                            Number(
+                                button
+                                .dataset
+                                .index
+                            ),
+                            1
+                        );
+
+
+                        updateCart();
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================
+   OPEN CART
+========================= */
+
+getElement("cartBtn")
+    .addEventListener(
+        "click",
+        function () {
+
+            updateCart();
+
+            getElement("cartPanel")
+                .classList
+                .add("open");
+
+        }
+    );
+
+
+/* =========================
+   CLOSE CART
+========================= */
+
+getElement("closeCart")
+    .addEventListener(
+        "click",
+        function () {
+
+            getElement("cartPanel")
+                .classList
+                .remove("open");
+
+        }
+    );
+
+
+/* =========================
+   CHECKOUT
+========================= */
+
+getElement("checkoutBtn")
+    .addEventListener(
+        "click",
+        function () {
+
+            if (
+                cart.length === 0
+            ) {
+
+                alert(
+                    "Cart is empty"
+                );
+
+                return;
+
+            }
+
+
+            getElement("cartPanel")
+                .classList
+                .remove("open");
+
+
+            getElement("checkoutModal")
+                .classList
+                .remove("hidden");
+
+        }
+    );
+
+
+/* =========================
+   CLOSE CHECKOUT
+========================= */
+
+getElement("closeCheckout")
+    .addEventListener(
+        "click",
+        function () {
+
+            getElement("checkoutModal")
+                .classList
+                .add("hidden");
+
+        }
+    );
+
+
+/* =========================
+   PLACE ORDER
+========================= */
+
+getElement("placeOrder")
+    .addEventListener(
+        "click",
+        function () {
+
+            const name =
+                getElement("fullName")
+                .value
+                .trim();
+
+
+            const email =
+                getElement("email")
+                .value
+                .trim();
+
+
+            const country =
+                getElement("country")
+                .value;
+
+
+            const payment =
+                document.querySelector(
+                    'input[name="pay"]:checked'
+                );
+
+
+            const terms =
+                getElement("terms")
+                .checked;
+
+
+            if (
+                !name ||
+                !email ||
+                !country ||
+                !payment ||
+                !terms
+            ) {
+
+                alert(
+                    "Please complete all fields"
+                );
+
+                return;
+
+            }
+
+
+            getElement("checkoutMessage")
+                .textContent =
+                "Payment successful — Order created!";
+
+
+            cart = [];
+
+
+            updateCart();
+
+        }
+    );
+
+
+/* =========================
+   ORDERS
+========================= */
+
+function renderOrders(
+    searchText = ""
+) {
+
+    const search =
+        searchText
+        .toLowerCase();
+
+
+    const filtered =
+        orders.filter(
+            function (order) {
+
+                return order
+                    .join(" ")
+                    .toLowerCase()
+                    .includes(search);
+
+            }
+        );
+
+
+    getElement("ordersBody")
+        .innerHTML =
+        filtered
+        .map(
+            function (order) {
+
+                return `
+
+                <tr>
+
+                    <td>
+                        ${order[0]}
+                    </td>
+
+                    <td>
+                        ${order[1]}
+                    </td>
+
+                    <td>
+                        ${order[2]}
+                    </td>
+
+                    <td class="status">
+                        ${order[3]}
+                    </td>
+
+                </tr>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+/* =========================
+   ORDER SEARCH
+========================= */
+
+getElement("orderSearch")
+    .addEventListener(
+        "input",
+        function (event) {
+
+            renderOrders(
+                event.target.value
+            );
+
+        }
+    );
+
+
+/* =========================
+   ALERT
+========================= */
+
+getElement("alertBtn")
+    .addEventListener(
+        "click",
+        function () {
+
+            alert(
+                "QA Practice Alert"
+            );
+
+        }
+    );
+
+
+/* =========================
+   NEW TAB
+========================= */
+
+getElement("newTabBtn")
+    .addEventListener(
+        "click",
+        function () {
+
+            const newWindow =
+                window.open(
+                    "",
+                    "_blank"
+                );
+
+
+            newWindow.document.write(`
+
+                <html>
+
+                <head>
+
+                    <title>
+                        Help Center
+                    </title>
+
+                </head>
+
+                <body>
+
+                    <h1>
+                        Help Center
+                    </h1>
+
+                    <p>
+                        QA Practice Store
+                        Help Page
+                    </p>
+
+                </body>
+
+                </html>
+
+            `);
+
+        }
+    );
+
+
+/* =========================
+   IFRAME
+========================= */
+
+getElement("iframeBtn")
+    .addEventListener(
+        "click",
+        function () {
+
+            getElement(
+                "practiceFrame"
+            )
+            .classList
+            .toggle("hidden");
+
+        }
+    );
+
+
+/* =========================
+   FILE UPLOAD
+========================= */
+
+getElement("fileInput")
+    .addEventListener(
+        "change",
+        function (event) {
+
+            const file =
+                event.target.files[0];
+
+
+            if (file) {
+
+                getElement("fileName")
+                    .textContent =
+                    "Selected file: " +
+                    file.name;
+
+            }
+
+        }
+    );
+
+
+/* =========================
+   INITIAL LOAD
+========================= */
+
+renderProducts();
+
+renderOrders();
+
+</script>
+
+</body>
+
+</html>
