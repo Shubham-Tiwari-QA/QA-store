@@ -15,6 +15,91 @@
 /* =========================
    GLOBAL
 ========================= */
+/* =========================
+   SCROLLBAR - EVERYWHERE
+========================= */
+
+/* Main page */
+html,
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* All common containers */
+main,
+section,
+.section {
+    overflow: auto;
+}
+
+/* Product area */
+#products {
+    overflow-y: auto;
+}
+
+/* Orders table */
+.table-wrap {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 500px;
+}
+
+/* Automation playground */
+.tools {
+    overflow: auto;
+}
+
+/* Cart */
+.cart-panel {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#cartItems {
+    max-height: 55vh;
+    overflow-y: auto;
+}
+
+/* Checkout */
+.modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.modal-card {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Iframe */
+iframe {
+    overflow: auto;
+}
+
+/* Custom scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #94a3b8 #eef2f7;
+}
+
+*::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #eef2f7;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+    border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
 
 * {
     box-sizing: border-box;
@@ -844,6 +929,32 @@ iframe {
     margin-top: 3px;
 }
 
+.payment-history {
+    margin-top: 35px;
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(15,23,42,.05);
+}
+
+.payment-success {
+    padding: 14px;
+    margin: 15px 0;
+    border-radius: 10px;
+    background: #dcfce7;
+    color: #166534;
+    font-weight: 700;
+}
+
+.payment-success.hidden {
+    display: none;
+}
+
+.payment-status-success {
+    color: #15803d;
+    font-weight: 700;
+}
+
 </style>
 
 </head>
@@ -1474,6 +1585,36 @@ iframe {
         <div
             id="checkoutMessage">
         </div>
+        <div class="payment-history">
+
+    <h2>Payment History</h2>
+
+    <div id="paymentMessage" class="payment-success hidden">
+        Payment Successful!
+    </div>
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Payment ID</th>
+                    <th>Order ID</th>
+                    <th>Amount</th>
+                    <th>Payment Method</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody id="paymentHistoryBody"></tbody>
+
+        </table>
+
+    </div>
+
+</div>
 
     </div>
 
@@ -2034,67 +2175,156 @@ getElement("closeCheckout")
 ========================= */
 
 getElement("placeOrder")
-    .addEventListener(
-        "click",
-        function () {
+    .addEventListener("click", function () {
 
-            const name =
-                getElement("fullName")
-                .value
-                .trim();
+        const name =
+            getElement("fullName")
+            .value
+            .trim();
 
+        const email =
+            getElement("email")
+            .value
+            .trim();
 
-            const email =
-                getElement("email")
-                .value
-                .trim();
+        const country =
+            getElement("country")
+            .value;
 
+        const payment =
+            document.querySelector(
+                'input[name="pay"]:checked'
+            );
 
-            const country =
-                getElement("country")
-                .value;
-
-
-            const payment =
-                document.querySelector(
-                    'input[name="pay"]:checked'
-                );
-
-
-            const terms =
-                getElement("terms")
-                .checked;
+        const terms =
+            getElement("terms")
+            .checked;
 
 
-            if (
-                !name ||
-                !email ||
-                !country ||
-                !payment ||
-                !terms
-            ) {
+        /* Validation */
 
-                alert(
-                    "Please complete all fields"
-                );
+        if (
+            !name ||
+            !email ||
+            !country ||
+            !payment ||
+            !terms
+        ) {
 
-                return;
+            alert(
+                "Please complete all fields"
+            );
 
-            }
-
-
-            getElement("checkoutMessage")
-                .textContent =
-                "Payment successful — Order created!";
-
-
-            cart = [];
-
-
-            updateCart();
-
+            return;
         }
-    );
+
+
+        /* Calculate amount */
+
+        const amount =
+            cart.reduce(
+                function (sum, product) {
+                    return sum + product.price;
+                },
+                0
+            );
+
+
+        /* Generate IDs */
+
+        const paymentId =
+            "PAY-" +
+            Date.now();
+
+        const orderId =
+            "ORD-" +
+            Date.now();
+
+
+        /* Current date */
+
+        const date =
+            new Date().toLocaleString();
+
+
+        /* Payment object */
+
+        const paymentData = {
+
+            paymentId: paymentId,
+
+            orderId: orderId,
+
+            customer: name,
+
+            email: email,
+
+            amount: amount,
+
+            method: payment.value,
+
+            country: country,
+
+            date: date,
+
+            status: "SUCCESS"
+
+        };
+
+
+        /* Save payment */
+
+        savePayment(paymentData);
+
+
+        /* Success message */
+
+        getElement(
+            "checkoutMessage"
+        ).innerHTML = `
+
+            <div class="payment-success">
+
+                ✅ Payment Successful!
+
+                <br><br>
+
+                Payment ID:
+                <strong>
+                    ${paymentId}
+                </strong>
+
+                <br>
+
+                Order ID:
+                <strong>
+                    ${orderId}
+                </strong>
+
+                <br>
+
+                Amount:
+                <strong>
+                    $${amount}
+                </strong>
+
+            </div>
+
+        `;
+
+
+        /* Clear cart */
+
+        cart = [];
+
+        updateCart();
+
+
+        /* Refresh payment history */
+
+        renderPaymentHistory();
+
+    });
 
 
 /* =========================
@@ -2287,14 +2517,142 @@ getElement("fileInput")
         }
     );
 
+function savePayment(payment) {
 
+    let payments = JSON.parse(
+        localStorage.getItem("payments") || "[]"
+    );
+
+    payments.push(payment);
+
+    localStorage.setItem(
+        "payments",
+        JSON.stringify(payments)
+    );
+
+    renderPaymentHistory();
+}
+
+
+function renderPaymentHistory() {
+
+    const payments = JSON.parse(
+        localStorage.getItem("payments") || "[]"
+    );
+
+    const tbody = document.getElementById(
+        "paymentHistoryBody"
+    );
+
+    // Agar payment history table HTML me nahi hai
+    if (!tbody) {
+        console.log(
+            "paymentHistoryBody not found"
+        );
+        return;
+    }
+
+    tbody.innerHTML = "";
+
+    payments.forEach(function(payment) {
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${payment.paymentId}</td>
+
+            <td>${payment.orderId}</td>
+
+            <td>$${payment.amount}</td>
+
+            <td>${payment.method}</td>
+
+            <td>${payment.date}</td>
+
+            <td>
+                <strong style="color: green;">
+                    ${payment.status}
+                </strong>
+            </td>
+        `;
+
+        tbody.appendChild(row);
+    });
+}
+function savePayment(payment) {
+
+    let payments =
+        JSON.parse(
+            localStorage.getItem("payments") || "[]"
+        );
+
+    payments.push(payment);
+
+    localStorage.setItem(
+        "payments",
+        JSON.stringify(payments)
+    );
+    function renderPaymentHistory() {
+
+    const payments =
+        JSON.parse(
+            localStorage.getItem("payments") || "[]"
+        );
+
+    const tbody =
+        document.getElementById(
+            "paymentHistoryBody"
+        );
+
+    tbody.innerHTML = "";
+
+    payments.forEach(function(payment) {
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+
+            <td>
+                ${payment.paymentId}
+            </td>
+
+            <td>
+                ${payment.orderId}
+            </td>
+
+            <td>
+                $${payment.amount}
+            </td>
+
+            <td>
+                ${payment.method}
+            </td>
+
+            <td>
+                ${payment.date}
+            </td>
+
+            <td class="payment-status-success">
+                ${payment.status}
+            </td>
+
+        `;
+
+        tbody.appendChild(row);
+
+    });
+}
+
+  
+}
 /* =========================
    INITIAL LOAD
 ========================= */
 
 renderProducts();
-
 renderOrders();
+renderPaymentHistory();
+
 
 </script>
 
